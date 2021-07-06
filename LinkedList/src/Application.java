@@ -2,13 +2,22 @@ import java.util.Scanner;
 
 public class Application {
     public static void main(String[] args) {
-
-        initMenu();
-
-    }
-    private static int mainMenu(){
-        int option;
+        int choice;
         Scanner sc = new Scanner(System.in);
+        do{
+            clearScreen();
+            mainMenu();
+            choice = sc.nextInt();
+
+            makeSelection(choice);
+        }while (choice!=5);
+    }
+    private static void mainMenu(){
+        int option;
+        /*
+        Seperate make one menu method and just pass parameter of array  argument.
+        remove the return type and just leave it looping into the make selection part.
+         */
 
             System.out.println("Please select an option to proceed!");
             System.out.println("-------------------------------------------\n");
@@ -17,8 +26,6 @@ public class Application {
             System.out.println("3 - Replicate the Link List x number of times");
             System.out.println("4 - Display the values of the Linked List    ");
             System.out.println("5 - Quit                                     ");
-            option = sc.nextInt();
-        return option;
     }
 
     // Submenu
@@ -31,14 +38,7 @@ public class Application {
             }
         }
     }
-    /*
-    * ustomer ID: " + customerID + "\n" +
-                " First Name: " + firstName + "\n" +
-                " Last Name: " + lastName + "\n" +
-                " Address: " + fullAddress +  "\n" +
-                " Telephone Number: " + telephoneNumber;
-    *
-    * */
+
     private static void populateList(){
         int id=0;
         String firstName = "";
@@ -79,8 +79,8 @@ public class Application {
 
             myCustomerList.traverseList();
 
-            System.out.println("Do you want to continue(Y/N):");
-            ch = sc.next();
+            System.out.println("\nDo you want to continue(Y/N):");
+            ch = sc.nextLine();
 
 
 
@@ -91,14 +91,8 @@ public class Application {
         }
 
     }
-    public static void initMenu(){
-        int choice;
-        do{
-            clearScreen();
-           choice= mainMenu();
-        }while (choice==5);
-        makeSelection(choice);
-    }
+
+
 
     private  static void makeSelection(int choice) {
         CustomList<Customer> myCustomerList = new LinkedList<>();
@@ -108,6 +102,7 @@ public class Application {
                 populateList();
                 break;
             case 2:
+                // Creating a temp list object for deletion
                 Customer cust2 = new Customer(2222, "Diana", "Muller", "2334 Cote-Des-Neiges, QC", "(514)-333-3533");
                 myCustomerList.delete(cust2);
                 break;
@@ -117,6 +112,9 @@ public class Application {
 
             case 4:
                 myCustomerList.traverseList();
+                break;
+            case 5:
+                System.exit(0);
                 break;
             default:
                 System.out.println("unexpected error has occurred!");
